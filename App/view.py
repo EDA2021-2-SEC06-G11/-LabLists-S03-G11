@@ -25,6 +25,7 @@ import sys
 import controller
 from DISClib.ADT import list as lt
 assert cf
+import time as time
 
 
 """
@@ -112,6 +113,33 @@ while True:
         book_count = controller.countBooksByTag(catalog, label)
         print('Se encontraron: ', book_count, ' Libros')
 
+    elif int(inputs[0])==5 :
+        print("Opcion para medir tiempos")
+        t1 = time.process_time()
+        catalog = initCatalog()
+        t2 = time.process_time()
+        print("El tiempo de ejecucion de InitCatalog fue:", (t2-t1))
+
+        # Repetimos el proceso de medicion para cada una de las funciones
+        t1 = time.process_time()
+        loadData(catalog)
+        t2 = time.process_time()
+        print("El tiempo de ejecucion de LoadData fue:", (t2-t1))
+
+        # Repetimos el proceso de medicion para cada una de las funciones
+        t1 = time.process_time()
+        authorname = "no"
+        author = controller.getBooksByAuthor(catalog, authorname)
+        printAuthorData(author)
+        t2 = time.process_time()
+        print("El tiempo de ejecucion de printByAuthor fue:", (t2-t1))
+
+        # Repetimos el proceso de medicion para cada una de las funciones
+        t1 = time.process_time()
+        books = controller.getBestBooks(catalog, int(5))
+        printBestBooks(books)
+        t2 = time.process_time()
+        print("El tiempo de ejecucion de printBestBook fue:", (t2-t1))
     else:
         sys.exit(0)
 sys.exit(0)
